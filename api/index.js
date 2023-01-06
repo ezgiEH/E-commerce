@@ -6,12 +6,13 @@ const dotenv = require("dotenv")//For env field
 dotenv.config()
 
 //Routes
-const userRoute = require("./routes/users")
+const userRoute = require("./routes/user")
 const authRoute = require("./routes/auth")
-
-
-
-mongoose.connect(process.env.MONGO_URL)
+const productRoute = require("./routes/product")
+const cartRoute = require("./routes/cart")
+const orderRoute = require("./routes/order")
+mongoose
+    .connect(process.env.MONGO_URL)
     //Promise so if this is success console.log
     .then(() => console.log("DBConnection is successfull!"))
     //is failed console.log error
@@ -24,6 +25,9 @@ app.use(express.json())
 //when we go to endpoint this will work
 app.use("/api/auth", authRoute)
 app.use("/api/users", userRoute)
+app.use("/api/products", productRoute)
+app.use("/api/carts", cartRoute)
+app.use("/api/orders", orderRoute)
 
 //listen backend server check
 app.listen(process.env.PORT || 5000, () =>{
