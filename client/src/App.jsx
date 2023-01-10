@@ -1,3 +1,4 @@
+import { BrowserRouter as Router, Route, Routes, redirect, } from 'react-router-dom'
 import Home from './pages/Home';
 import ProductList from './pages/ProductList';
 import Product from './pages/Product'
@@ -6,8 +7,20 @@ import Login from './pages/Login';
 import Cart from "./pages/Cart";
 
 function App() {
+  const user = true
   return (
-    <Home />
+    
+    <Router>
+      <Routes>
+        <Route exact path="/" element={<Home />} />
+        <Route path="/products/:category" element={<ProductList />} />
+        <Route path="/product/:id" element={<Product />} />
+        <Route path="/cart" element={<Cart />} />
+        {/* <Route path="/success" element={<Success />} /> */}
+        <Route path="/login" element={user ? <redirect to="/" /> : <Login />} />
+        <Route path="/register" element={user ? <redirect to="/" /> : <Register />} />
+      </Routes>
+    </Router>
   );
 }
 
